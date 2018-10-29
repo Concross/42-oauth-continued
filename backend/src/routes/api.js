@@ -51,6 +51,15 @@ router.get('/hello', (req, res, next) => {
   res.send('hello world');
 });
 
+router.get('/api/v1/players', (req, res, next) => {
+  return User.find({ role: 'player' })
+    .then(data => {
+      console.log(data);
+      res.send(data);
+    })
+    .catch(console.error);
+});
+
 router.get('/user/:id', (req, res, next) => {
   return User.findOne({ _id: req.params.id })
     .select('-username -password -__v')
@@ -67,6 +76,7 @@ router.get('/:model/:id', (req, res, next) => {
     })
     .catch(next);
 });
+
 
 
 /***********************************

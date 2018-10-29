@@ -31,6 +31,14 @@ userSchema.pre('findOne', function (next) {
   next();
 });
 
+userSchema.pre('find', function (next) {
+  this.populate('stats', '-user -__v');
+  this.populate('coach', '-user -__v -role');
+  this.populate('player', '-user -__v -role');
+
+  next();
+});
+
 //Does password comparison
 userSchema.statics.authenticate = function (auth) {
   let userQuery = { username: auth.username };
