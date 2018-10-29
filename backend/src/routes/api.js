@@ -2,7 +2,6 @@
 
 import express from 'express';
 import modelFinder from '../middleware/modelFinder';
-import auth from '../auth/middleware';
 import Team from '../models/team';
 import User from '../auth/user';
 const router = express.Router();
@@ -12,7 +11,7 @@ router.param('model', modelFinder);
 /***********************************
 *     POST REQUESTS                *
 ************************************/
-router.post('/team', auth, (req, res, next) => {
+router.post('/team', (req, res, next) => {
 
   if (req.user.role === 'coach') {
     req.body.coach = req.user._id;
@@ -32,7 +31,7 @@ router.post('/team', auth, (req, res, next) => {
 
 });
 
-router.post('/:model', auth, (req, res, next) => {
+router.post('/:model', (req, res, next) => {
 
   req.body.user = req.user._id;
 
@@ -73,7 +72,7 @@ router.get('/:model/:id', (req, res, next) => {
 /***********************************
 *     PUT REQUESTS                 *
 ************************************/
-router.put('/team/roster/add/:id', auth, (req, res, next) => {
+router.put('/team/roster/add/:id', (req, res, next) => {
   if (req.user.role !== 'coach') {
     res.status(401);
     res.send('only coaches may add to team roster');
@@ -89,7 +88,7 @@ router.put('/team/roster/add/:id', auth, (req, res, next) => {
   }
 });
 
-router.put('/team/roster/remove/:id', auth, (req, res, next) => {
+router.put('/team/roster/remove/:id', (req, res, next) => {
   if (req.user.role !== 'coach') {
     res.status(401);
     res.send('only coaches may delete from team roster');
@@ -106,7 +105,7 @@ router.put('/team/roster/remove/:id', auth, (req, res, next) => {
 
 });
 
-router.put('/:model', auth, (req, res, next) => {
+router.put('/:model', (req, res, next) => {
 
   return req.model.findOneAndUpdate(req.user[req.params.model], req.body, { new: true })
     .then(data => {
