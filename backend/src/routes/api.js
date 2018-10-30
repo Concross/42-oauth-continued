@@ -150,6 +150,14 @@ router.put('/:model', (req, res, next) => {
 /***********************************
 *     DELETE REQUESTS              *
 ************************************/
+router.delete('/api/v1/destroy/player', (req, res, next) => {
+  return Profile.findByIdAndDelete({ _id: req.body._id })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(next);
+});
+
 router.delete('/:model/:id', (req, res, next) => {
   return req.model.findByIdAndDelete({ _id: req.params.id })
     .then(data => {

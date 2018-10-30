@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { playersFetchAll, playerCreateRequest, playerUpdateRequest } from '../../action/player-actions';
+import {
+  playersFetchAll,
+  playerCreateRequest,
+  playerUpdateRequest,
+  playerDestroyRequest,
+} from '../../action/player-actions';
 import Player from '../player';
 import PlayerForm from '../player-form';
 
@@ -32,7 +37,7 @@ export class PlayersContainer extends React.Component {
                 players.map(player => {
                   return (
                     <li key={player._id}>
-                      <Player player={player}>
+                      <Player player={player} destroy={actions.playerDestroyRequest}>
                         <PlayerForm player={player} onComplete={actions.playerUpdateRequest} />
                       </Player>
                     </li>
@@ -57,6 +62,7 @@ const mapDispatchToProps = (dispatch, getState) => {
       playersFetchAll: () => dispatch(playersFetchAll()),
       playerCreateRequest: player => dispatch(playerCreateRequest(player)),
       playerUpdateRequest: player => dispatch(playerUpdateRequest(player)),
+      playerDestroyRequest: player => dispatch(playerDestroyRequest(player)),
     },
   };
 };

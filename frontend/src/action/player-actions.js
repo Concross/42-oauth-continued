@@ -59,5 +59,16 @@ export const playerUpdateRequest = player => dispatch => {
       dispatch(playerUpdate(res.body));
       return res;
     })
-    .catch(console.err);
+    .catch(console.error);
+};
+
+export const playerDestroyRequest = player => dispatch => {
+  return superagent.delete(`http://localhost:3000/api/v1/destroy/player`)
+    .set('Content-Type', 'application/json')
+    .send(player)
+    .then(res => {
+      dispatch(playerDestroy(res.body));
+      return res;
+    })
+    .catch(console.error);
 };

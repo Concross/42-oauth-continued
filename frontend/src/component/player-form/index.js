@@ -23,7 +23,11 @@ export default class PlayerForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const player = { ...this.state, _id: this.props.player._id };
+    let player = { ...this.state };
+
+    if (this.props.player) {
+      player = { ...this.state, _id: this.props.player._id };
+    }
     this.props.onComplete(player);
   }
 
