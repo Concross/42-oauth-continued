@@ -1,18 +1,18 @@
-# React Budget App!
+# Psuedo Rugby Scout Front End
 ===
 
 ## App Component
 * the `/` route displays the `Dashboard` component
 
 ## Dashboard Component 
-* The Dashboard component manages the entire **application state**
-* The state contains categories and actions, passed into dashboard as props4
-* Displays a CategoryCreateForm and an unordered list of CategoryItems
+* The Dashboard component manages the entire **application state** and communicates with MongoDB through async actions creaters
+* The state contains player and actions, passed into dashboard as props
+* Displays a PlayerForm and an unordered list of Players
 
-## CategoryCreateForm Component
-* the form adds a note to the application state OR updates the current category 
+## PlayerForm Component
+* the form adds a player to the application state OR updates the current player 
 
 
-## CategoryItem Component 
-* displays an unordered list of Category item with a CategoryCreateForm to update components
-* Can delete the category by clicking the `x`
+## Player Component 
+* displays a Player with a PlayerForm to update the component
+* Can delete the player by clicking the `x`
