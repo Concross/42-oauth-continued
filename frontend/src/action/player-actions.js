@@ -31,7 +31,6 @@ export const playerDestroy = player => {
 /***********************************
 *     ASYNC ACTIONS     *
 ************************************/
-
 export const playersFetchAll = () => dispatch => {
   return superagent.get(`http://localhost:3000/api/v1/players`)
     .then(res => {

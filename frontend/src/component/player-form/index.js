@@ -24,6 +24,7 @@ export default class PlayerForm extends React.Component {
     const player = {
       firstName,
       lastName,
+      role: 'player',
     };
     console.log(player);
     this.props.actions.playerCreateRequest(player);
