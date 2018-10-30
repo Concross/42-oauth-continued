@@ -36,7 +36,7 @@ export default class PlayerForm extends React.Component {
       <div className="player-form-container">
         <form id="player-form" onSubmit={this.handleSubmit}>
           <fieldset>
-            <legend>{this.state.firstName ? 'Update Player' : 'Add Player'}</legend>
+            <legend>{this.props.legend}</legend>
             <label htmlFor="firstName">
               First Name:
               <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} autoComplete="off" />
@@ -45,7 +45,7 @@ export default class PlayerForm extends React.Component {
               Last Name:
               <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} autoComplete="off" />
             </label>
-            <button type="submit" >{this.state.firstName ? 'Update' : 'Add'}</button>
+            <button type="submit" >{this.props.buttonText}</button>
           </fieldset>
         </form>
       </div>

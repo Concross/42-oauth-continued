@@ -23,26 +23,27 @@ export class PlayersContainer extends React.Component {
     this.setState({ isFetching: false });
   }
 
+  renderPlayer(player) {
+    return (
+      <li key={player._id}>
+        <Player player={player} destroy={this.props.actions.playerDestroyRequest}>
+          <PlayerForm player={player} onComplete={this.props.actions.playerUpdateRequest} legend="Update Player" buttonText="Update" />
+        </Player>
+      </li>
+    );
+  }
+
   render() {
     const { actions, players } = this.props;
     return (
       <div className="players-container">
         <h1>Players</h1>
-        <PlayerForm onComplete={actions.playerCreateRequest} />
+        <PlayerForm onComplete={actions.playerCreateRequest} legend="Add Player" buttonText="Add" />
         {this.state.isFetching
           ? (<h3>I'm fetching!</h3>)
           : (
             <ul>
-              {
-                players.map(player => {
-                  return (
-                    <li key={player._id}>
-                      <Player player={player} destroy={actions.playerDestroyRequest}>
-                        <PlayerForm player={player} onComplete={actions.playerUpdateRequest} />
-                      </Player>
-                    </li>
-                  );
-                })}
+              {players.map(player => this.renderPlayer(player))}
             </ul>
           )}
       </div>
