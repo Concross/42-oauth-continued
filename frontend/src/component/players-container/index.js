@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { playersFetchAll } from '../../action/player-actions';
 import Player from '../player';
+import PlayerForm from '../player-form';
 
 export class PlayersContainer extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ export class PlayersContainer extends React.Component {
     return (
       <div className="players-container">
         <h1>Players</h1>
+        <PlayerForm />
         {this.state.isFetching ? (
           <h3>I'm fetching!</h3>
         )

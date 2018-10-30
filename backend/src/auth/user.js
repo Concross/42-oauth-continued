@@ -33,8 +33,8 @@ userSchema.pre('findOne', function (next) {
 
 userSchema.pre('find', function (next) {
   this.populate('stats', '-user -__v');
-  this.populate('coach', '-user -__v -role');
-  this.populate('player', '-user -__v -role');
+  this.populate('coach', '-user -__v -role -password');
+  this.populate('player', '-user -__v -role -password');
 
   next();
 });

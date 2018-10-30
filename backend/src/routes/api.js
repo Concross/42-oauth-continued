@@ -51,8 +51,10 @@ router.get('/hello', (req, res, next) => {
   res.send('hello world');
 });
 
+// TODO(connor): select to ignore uname and password not working
 router.get('/api/v1/players', (req, res, next) => {
   return User.find({ role: 'player' })
+    .select('-username -password')
     .then(data => {
       console.log(data);
       res.send(data);
