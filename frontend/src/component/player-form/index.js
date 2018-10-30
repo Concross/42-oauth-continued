@@ -4,9 +4,12 @@ export default class PlayerForm extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(props.player);
+
     this.state = {
       firstName: props.player ? props.player.firstName : '',
       lastName: props.player ? props.player.lastName : '',
+      role: 'player',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,13 +23,7 @@ export default class PlayerForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { firstName, lastName } = this.state;
-    const player = {
-      firstName,
-      lastName,
-      role: 'player',
-    };
-    console.log(player);
+    const player = { ...this.state, _id: this.props.player._id };
     this.props.onComplete(player);
   }
 

@@ -68,7 +68,6 @@ router.get('/api/v1/players', (req, res, next) => {
   return Profile.find({ role: 'player' })
     .select('-username -password')
     .then(data => {
-      console.log(data);
       res.send(data);
     })
     .catch(console.error);
@@ -96,6 +95,15 @@ router.get('/:model/:id', (req, res, next) => {
 /***********************************
 *     PUT REQUESTS                 *
 ************************************/
+router.put('/api/v1/update/player', (req, res, next) => {
+  console.log(req.body);
+  return Profile.findByIdAndUpdate({ _id: req.body._id }, req.body, { new: true })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(next);
+});
+
 router.put('/team/roster/add/:id', (req, res, next) => {
   if (req.user.role !== 'coach') {
     res.status(401);

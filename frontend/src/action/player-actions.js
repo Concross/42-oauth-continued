@@ -50,3 +50,14 @@ export const playerCreateRequest = player => dispatch => {
     })
     .catch(console.error);
 };
+
+export const playerUpdateRequest = player => dispatch => {
+  return superagent.put(`http://localhost:3000/api/v1/update/player`)
+    .set('Content-Type', 'application/json')
+    .send(player)
+    .then(res => {
+      dispatch(playerUpdate(res.body));
+      return res;
+    })
+    .catch(console.err);
+};
