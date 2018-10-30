@@ -2,8 +2,9 @@ import React from 'react';
 
 export default class Player extends React.Component {
   render() {
+    const player = this.props.player;
     return (
-      <h2>I'm a player!</h2>
+      <h2>{player.player.firstName}</h2>
     );
   }
 }

@@ -30,7 +30,7 @@ export class PlayersContainer extends React.Component {
                 this.props.players.map(player => {
                   return (
                     <li key={player._id}>
-                      <Player />
+                      <Player player={player} />
                     </li>
                   );
                 })}
