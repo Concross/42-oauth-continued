@@ -4,6 +4,7 @@ import express from 'express';
 import modelFinder from '../middleware/modelFinder';
 import Team from '../models/team';
 import User from '../auth/user';
+import Profile from '../models/profile';
 const router = express.Router();
 
 router.param('model', modelFinder);
@@ -31,6 +32,16 @@ router.post('/team', (req, res, next) => {
 
 });
 
+router.post('/api/v1/add/player', (req, res, next) => {
+  let document = new Profile(req.body);
+
+  document.save()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(next);
+});
+
 router.post('/:model', (req, res, next) => {
 
   req.body.user = req.user._id;
@@ -44,6 +55,7 @@ router.post('/:model', (req, res, next) => {
     .catch(next);
 });
 
+
 /***********************************
 *     GET REQUESTS                 *
 ************************************/
@@ -53,7 +65,7 @@ router.get('/hello', (req, res, next) => {
 
 // TODO(connor): select to ignore uname and password not working
 router.get('/api/v1/players', (req, res, next) => {
-  return User.find({ role: 'player' })
+  return Profile.find({ role: 'player' })
     .select('-username -password')
     .then(data => {
       console.log(data);
