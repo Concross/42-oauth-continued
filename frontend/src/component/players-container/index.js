@@ -52,7 +52,7 @@ export class PlayersContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    players: state,
+    players: state.players,
   };
 };
 
