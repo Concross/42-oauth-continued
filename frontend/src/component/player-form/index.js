@@ -5,8 +5,8 @@ export default class PlayerForm extends React.Component {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
+      firstName: props.player ? props.player.firstName : '',
+      lastName: props.player ? props.player.lastName : '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,7 +27,7 @@ export default class PlayerForm extends React.Component {
       role: 'player',
     };
     console.log(player);
-    this.props.actions.playerCreateRequest(player);
+    this.props.onComplete(player);
   }
 
   render() {
@@ -35,7 +35,7 @@ export default class PlayerForm extends React.Component {
       <div className="player-form-container">
         <form id="player-form" onSubmit={this.handleSubmit}>
           <fieldset>
-            <legend>Add Player</legend>
+            <legend>{this.state.firstName ? 'Update Player' : 'Add Player'}</legend>
             <label htmlFor="firstName">
               First Name:
               <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} autoComplete="off" />
@@ -44,7 +44,7 @@ export default class PlayerForm extends React.Component {
               Last Name:
               <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} autoComplete="off" />
             </label>
-            <button type="submit" >Add</button>
+            <button type="submit" >{this.state.firstName ? 'Update' : 'Add'}</button>
           </fieldset>
         </form>
       </div>

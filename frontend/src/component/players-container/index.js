@@ -23,7 +23,7 @@ export class PlayersContainer extends React.Component {
     return (
       <div className="players-container">
         <h1>Players</h1>
-        <PlayerForm actions={actions} />
+        <PlayerForm onComplete={actions.playerCreateRequest} />
         {this.state.isFetching
           ? (<h3>I'm fetching!</h3>)
           : (
@@ -32,7 +32,9 @@ export class PlayersContainer extends React.Component {
                 players.map(player => {
                   return (
                     <li key={player._id}>
-                      <Player player={player} />
+                      <Player player={player}>
+                        <PlayerForm player={player} onComplete={actions.playerUpdateRequest} />
+                      </Player>
                     </li>
                   );
                 })}
