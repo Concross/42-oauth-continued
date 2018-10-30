@@ -4,8 +4,6 @@ export default class PlayerForm extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props.player);
-
     this.state = {
       firstName: props.player ? props.player.firstName : '',
       lastName: props.player ? props.player.lastName : '',
