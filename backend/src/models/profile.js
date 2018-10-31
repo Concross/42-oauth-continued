@@ -59,4 +59,11 @@ profileSchema.pre('save', function (next) {
     .then(next())
     .catch(next);
 });
+
+profileSchema.pre('find', function (next) {
+  this.populate('user', '-password');
+
+  next();
+});
+
 export default mongoose.model('profiles', profileSchema);
