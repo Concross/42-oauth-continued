@@ -1,8 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 import createAppStore from '../../lib/store';
 import PlayersContainer from '../players-container';
+import Landing from '../landing';
 
 const store = createAppStore();
 
@@ -12,7 +13,18 @@ export default class App extends React.Component {
       <div className="app-container">
         <Provider store={store}>
           <BrowserRouter>
-            <Route exact path="/" component={PlayersContainer} />
+            <h1>Rugby Scout!</h1>
+            <nav>
+              <ul>
+                <li><Link to="/welcome/signup">Sign up!</Link></li>
+                <li><Link to="/welcome/login">Login!</Link></li>
+                <li><Link to="/players">Dashboard</Link></li>
+              </ul>
+            </nav>
+            <main>
+              <Route exact path="/welcome/:auth" component={Landing} />
+              <Route exact path="/players" component={PlayersContainer} />
+            </main>
           </BrowserRouter>
         </Provider>
       </div>
