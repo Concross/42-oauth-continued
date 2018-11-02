@@ -2,9 +2,9 @@
 
 import express from 'express';
 import modelFinder from '../middleware/modelFinder';
-import auth from '../auth/middleware';
 import Team from '../models/team';
 import User from '../auth/user';
+import Profile from '../models/profile';
 const router = express.Router();
 
 router.param('model', modelFinder);
@@ -12,7 +12,7 @@ router.param('model', modelFinder);
 /***********************************
 *     POST REQUESTS                *
 ************************************/
-router.post('/team', auth, (req, res, next) => {
+router.post('/team', (req, res, next) => {
 
   if (req.user.role === 'coach') {
     req.body.coach = req.user._id;
@@ -32,7 +32,17 @@ router.post('/team', auth, (req, res, next) => {
 
 });
 
-router.post('/:model', auth, (req, res, next) => {
+router.post('/api/v1/add/player', (req, res, next) => {
+  let document = new Profile(req.body);
+
+  document.save()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(next);
+});
+
+router.post('/:model', (req, res, next) => {
 
   req.body.user = req.user._id;
 
@@ -45,11 +55,22 @@ router.post('/:model', auth, (req, res, next) => {
     .catch(next);
 });
 
+
 /***********************************
 *     GET REQUESTS                 *
 ************************************/
 router.get('/hello', (req, res, next) => {
   res.send('hello world');
+});
+
+// TODO(connor): select to ignore uname and password not working
+router.get('/api/v1/players', (req, res, next) => {
+  return Profile.find({ role: 'player' })
+    .select('-username -password')
+    .then(data => {
+      res.send(data);
+    })
+    .catch(console.error);
 });
 
 router.get('/user/:id', (req, res, next) => {
@@ -70,10 +91,20 @@ router.get('/:model/:id', (req, res, next) => {
 });
 
 
+
 /***********************************
 *     PUT REQUESTS                 *
 ************************************/
-router.put('/team/roster/add/:id', auth, (req, res, next) => {
+router.put('/api/v1/update/player', (req, res, next) => {
+  console.log(req.body);
+  return Profile.findByIdAndUpdate({ _id: req.body._id }, req.body, { new: true })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(next);
+});
+
+router.put('/team/roster/add/:id', (req, res, next) => {
   if (req.user.role !== 'coach') {
     res.status(401);
     res.send('only coaches may add to team roster');
@@ -89,7 +120,7 @@ router.put('/team/roster/add/:id', auth, (req, res, next) => {
   }
 });
 
-router.put('/team/roster/remove/:id', auth, (req, res, next) => {
+router.put('/team/roster/remove/:id', (req, res, next) => {
   if (req.user.role !== 'coach') {
     res.status(401);
     res.send('only coaches may delete from team roster');
@@ -106,7 +137,7 @@ router.put('/team/roster/remove/:id', auth, (req, res, next) => {
 
 });
 
-router.put('/:model', auth, (req, res, next) => {
+router.put('/:model', (req, res, next) => {
 
   return req.model.findOneAndUpdate(req.user[req.params.model], req.body, { new: true })
     .then(data => {
@@ -119,6 +150,14 @@ router.put('/:model', auth, (req, res, next) => {
 /***********************************
 *     DELETE REQUESTS              *
 ************************************/
+router.delete('/api/v1/destroy/player', (req, res, next) => {
+  return Profile.findByIdAndDelete({ _id: req.body._id })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(next);
+});
+
 router.delete('/:model/:id', (req, res, next) => {
   return req.model.findByIdAndDelete({ _id: req.params.id })
     .then(data => {
