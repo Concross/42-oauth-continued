@@ -11,13 +11,15 @@
   
 #### Feature Tasks
 * add a Google-Font to your project using a cdn url and @import
-* add Font-Awesome to your project using yarn and an @import
+* add Font-Awesome-React to your project with icons for at least two elements
+* add React Bootstrap to your project using npm and an @import
 
 #### Test
 * Test your redux reducers 
 * Test your util methods
 
 ## Stretch Goals
+* Hook up picture uploader to S3 on your backend
 * Create full CRUD for two resources 
 
 #### Documentation  
