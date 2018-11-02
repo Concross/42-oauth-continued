@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
 import createAppStore from '../../lib/store';
 import PlayersContainer from '../players-container';
 import Landing from '../landing';

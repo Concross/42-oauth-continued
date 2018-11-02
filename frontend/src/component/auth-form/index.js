@@ -21,7 +21,11 @@ export default class AuthForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onComplete(this.state);
+    this.props.onComplete(this.state)
+      .then(() => {
+        this.props.redirect('/players');
+      })
+      .catch(console.error);
   }
 
   render() {
