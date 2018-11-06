@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ![cf](http://i.imgur.com/7v5ASc8.png) 42: OAuth Continued
+=======
+![cf](http://i.imgur.com/7v5ASc8.png) 38: Spooooky Photo Uploads
+>>>>>>> upstream/master
 ===
 
 ## Submission Instructions
@@ -7,6 +11,7 @@
   * Write all of your code in a directory named `lab-` + `<your name>` **e.g.** `lab-duncan`
   * Submit a pull request to this repository
   * Submit a link to your pull request on canvas
+<<<<<<< HEAD
   * Submit a question, observation, and how long you spent on canvas 
   
 ## Learning Objectives  
@@ -46,6 +51,28 @@
 * add as many other routes or pages as you would like
 * create an index.html with an anchor tag pointing to the google authoraztion page 
  * configure the query string with correct key value pairs
+=======
+  * Submit a question, observation, and how long you spent on canvas  
+
+## Requirements  
+#### backend setup
+* use [sluggram](http://github.com/slugbyte/sluggram) 
+* or use your mid 401 project
+
+#### Feature Tasks 
+* Create a SettingsContainer
+  * give the user the ablity to create or update their profile
+  
+* Create a DashboardContainer
+  * give the user the abilty to create, read, update and destroy photos
+
+#### Test
+* Test your redux reducers 
+* Test your util methods
+
+## Stretch Goals
+* Create full crud for two resources 
+>>>>>>> upstream/master
 
 #### Documentation  
 Write a description of the project in your README.md, including detailed instructions for how to build your app. In your frontend README.md add a code block with your frontend .env vars, and in your backend README.md add a code block with your backend .env vars. 
