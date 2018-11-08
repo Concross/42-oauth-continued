@@ -3,7 +3,7 @@
 import User from './user';
 import express from 'express';
 import auth from './middleware';
-import oauth from './lib/oauth';
+import oauth from './lib/google';
 
 const authRouter = express.Router();
 
@@ -25,7 +25,7 @@ authRouter.get('/oauth', (req, res, next) => {
   oauth.authorize(req)
     .then(token => {
       res.cookie('token', token);
-      res.send(req.token);
+      res.redirect(process.env.CLIENT_URL);
     })
     .catch(err => console.error(err));
 });

@@ -1,32 +1,40 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import AuthForm from '../auth-form';
-import { signupRequest, loginRequest } from '../../action/auth-actions';
+import queryString from 'querystring';
+import * as route from '../../action/route';
 
-class Landing extends React.Component {
+export class LandingContainer extends React.Component {
+  componentDidMount() {
+    console.log('in landing');
+  }
+
   render() {
-    console.log(this.props.match);
-    const { auth } = this.props.match.params;
-    const handleComplete = auth === 'signup' ? this.props.signup : this.props.login;
+    const googleLoginBaseURL = 'https://accounts.google.com/o/oauth2/v2/auth';
 
-    const redirectToDashboard = path => this.props.history.replace(path);
+    const googleLoginQuery = queryString.stringify({
+      client_id: '133083091596-eidkf1tktu2evk2vqe1l8c0qdvhdg0sr.apps.googleusercontent.com',
+      response_type: 'code',
+      redirect_uri: `http://localhost:3000/oauth`,
+      scope: `openid profile email`,
+    });
+
+    const googleLoginURL = `${googleLoginBaseURL}?${googleLoginQuery}`;
+
     return (
-      <AuthForm onComplete={handleComplete} redirect={redirectToDashboard} auth={auth} />
+      <div className="landing-container">
+        <button onClick={this.props.goToLogin}>Login</button>
+        <button onClick={this.props.goToSignup}>Signup</button>
+        <a href={googleLoginURL}>Login with Google!</a>
+      </div>
     );
   }
 }
 
-const mapStateToProps = state => ({ token: state.token });
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    signup: user => dispatch(signupRequest(user)),
-    login: user => dispatch(loginRequest(user)),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  goToLogin: () => dispatch(route.switchRoute('/login')),
+  goToSignup: () => dispatch(route.switchRoute('/signup')),
+});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Landing);
+export default connect(mapStateToProps, mapDispatchToProps)(LandingContainer);
