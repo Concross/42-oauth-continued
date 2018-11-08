@@ -3,7 +3,7 @@
 import User from './user';
 import express from 'express';
 import auth from './middleware';
-import oauth from './lib/oauth';
+import oauth from './lib/google';
 
 const authRouter = express.Router();
 

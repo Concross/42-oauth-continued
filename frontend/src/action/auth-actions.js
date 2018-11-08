@@ -1,37 +1,48 @@
 import superagent from 'superagent';
+import * as utils from '../lib/util';
 
-export const tokenSet = token => {
+/********************************************************************************
+*         Synchronous                                                           *
+********************************************************************************/
+
+export const login = token => {
   return {
-    type: 'TOKEN_SET',
+    type: 'LOGIN',
     payload: token,
   };
 };
 
-export const tokenDelete = () => {
+export const logout = () => {
+  utils.cookieDelete('chatToken');
   return {
-    type: 'TOKEN_DELETE',
+    type: 'LOGOUT',
   };
 };
 
+/********************************************************************************
+*        Asynchronous                                                           *
+********************************************************************************/
+
 export const signupRequest = user => dispatch => {
-  return superagent.post(`http://localhost:3000/register`)
+  return superagent.post(`http://localhost:3000/signup`)
     .send(user)
     .withCredentials()
     .then(res => {
-      dispatch(tokenSet(res.text));
-      localStorage.setItem('token', res.text);
+      console.log(res);
+      const token = utils.cookieFetch('token');
+      if (token) dispatch(login(token));
       return res;
     })
     .catch(console.error);
 };
 
 export const loginRequest = user => dispatch => {
-  return superagent.get(`http://localhost:3000/signin`)
+  return superagent.get(`http://localhost:3000/login`)
     .auth(user.username, user.password)
     .withCredentials()
     .then(res => {
-      dispatch(tokenSet(res.text));
-      localStorage.setItem('token', res.text);
+      const token = utils.cookieFetch('token');
+      if (token) dispatch(login(token));
       return res;
     })
     .catch(console.error);
