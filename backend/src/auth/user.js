@@ -9,8 +9,8 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   //username is an email address
-  username: { type: String, required: true },
-  password: { type: String, required: true },
+  username: { type: String },
+  password: { type: String },
   coach: { type: Schema.Types.ObjectId, ref: 'profiles' },
   player: { type: Schema.Types.ObjectId, ref: 'profiles' },
   team: { type: Schema.Types.ObjectId, ref: 'teams' },
